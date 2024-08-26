@@ -1,24 +1,48 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Default Project With PostgreSQL connector
 
-Things you may want to cover:
+Require Installation 
+* Ruby 3.1.4
+* Rails 7.0.8.4
+* Recommend use RVM
 
-* Ruby version
+Execute [bundle install] to install dependecies
+Run using [rails s]
 
-* System dependencies
+The project contain a default model [Post.rb] for test DB connection using the command [rake db:migrate]
 
-* Configuration
+You can rollback the migration using [rake db:rollback]
 
-* Database creation
+Modified Database.yml as require on "development" section
 
-* Database initialization
+development:
+  <<: *default
+  host: 0.0.0.0
+  port: 4040
+  database: dbdock
+  username: tester
+  password: 123
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+----------------[RUN WITH DOCKER COMPOSE]-------------------
+[docker-compose.yml]
+[Command >>> docker compose up]
 
-* Deployment instructions
+services:
+  db-postgres:
+    image: postgres:latest
+    container_name: dock-port-4040
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+    restart: always
+    ports:
+    - '4040:5432'
+    environment:
+    - POSTGRES_DB=dbdock
+    - POSTGRES_USER=tester
+    - POSTGRES_PASSWORD=123
 
-* ...
+volumes:
+  pgdata:
+  
